@@ -1,0 +1,11 @@
+syntax = "proto3";
+package gettingstarted;
+
+// Hello is a hello message.
+message Hello {
+  // Subject is the subject of the Hello message.
+  string subject = 1;
+  map<string, Example> map_field = 2;
+}
+
+message Example {}
