@@ -1,12 +1,10 @@
-# Protobuf Backing Data-structures
+# Protobuf Datastructures
 
-> Use more efficient datastructures to back Protobufs in memory.
+> Use any backing datastructure or datastore for complex Protobuf structures.
 
 ## Introduction
 
-Allows developers to represent Protobuf objects in memory with faster data-structures.
-
-Protobuf Data-Structures (ProtoDS):
+Allows developers to represent Protobuf objects with different data-structures. protods:
 
  - Generates interface types for Protobufs including field setters.
  - Declares common interfaces for various types of compatible backing data-structures.
@@ -16,6 +14,7 @@ Examples include:
 
  - Use a ctrie to allow efficient concurrent snapshotting of protobuf objects.
  - Use a key/value store to lazy-load protobufs from storage.
+ - Load data from a Redis key/value store on-demand.
  
 Note: this project is in the early development phase.
  
@@ -163,8 +162,8 @@ type KeyValue interface {
 	Set(key string, value interface{})
 	// Get returns the value for the key.
 	Get(key string) (bool, interface{})
-    // Delete removes the value for the key.
-    Delete(key string)
+	// Delete removes the value for the key.
+	Delete(key string)
 }
 ```
 
@@ -174,7 +173,7 @@ Given a key-value backed object:
 message Upper {
 	string id = 1;
 	Lower lower = 2;
-    map<string, Lower> lower_kv = 3;
+	map<string, Lower> lower_kv = 3;
 }
 
 message Lower {
