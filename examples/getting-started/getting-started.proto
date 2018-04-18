@@ -5,7 +5,9 @@ package gettingstarted;
 message Hello {
   // Subject is the subject of the Hello message.
   string subject = 1;
+  // MapField is a map of keys to values.
   map<string, Example> map_field = 2;
 }
 
-message Example {}
+message Example {
+}

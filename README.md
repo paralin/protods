@@ -27,6 +27,7 @@ First, fetch some dependencies:
 ```bash
 go get -v github.com/golang/protobuf/protoc-gen-go
 go get -v github.com/square/goprotowrap/cmd/protowrap
+go get -v github.com/paralin/protods/cmd/protods
 ```
 
 Create a protobuf structure:
@@ -49,10 +50,10 @@ Generate the protods code:
 
 ```bash
 # Generate setters for all getters, interfaces for all types.
-protods generate itypes --go_out=. getting-started.proto
+protods generate itypes getting-started.proto
 
 # Generate 
-protods generate itypes --go_out=. getting-started.proto
+protods generate itypes getting-started.proto
 ```
  
 ## Code Generation Walkthrough
