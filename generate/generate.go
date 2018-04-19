@@ -9,13 +9,14 @@ import (
 	"strings"
 
 	"github.com/emicklei/proto"
+	"github.com/paralin/protods/parser"
 	"github.com/pkg/errors"
 )
 
 // Generator generates a particular code file from a proto file.
 type Generator interface {
 	// GenerateCode generates code given the input proto file.
-	GenerateCode(*proto.Proto) ([]byte, error)
+	GenerateCode(*parser.File) ([]byte, error)
 	// GetUsage returns a usage description of the generator.
 	GetUsage() string
 	// GetShortName returns a short name for the generator, used in filenames.
@@ -59,15 +60,20 @@ func Generate(gen Generator, protoPath, outputPath string) error {
 	}
 	defer f.Close()
 
-	parser := proto.NewParser(f)
-	parser.Filename(protoFilename)
-	parsedProto, err := parser.Parse()
+	pparser := proto.NewParser(f)
+	pparser.Filename(protoFilename)
+	parsedProto, err := pparser.Parse()
 	if err != nil {
 		return errors.Wrap(err, "parse proto")
 	}
 	_ = f.Close()
 
-	generatedCode, err := gen.GenerateCode(parsedProto)
+	pf, err := parser.Parse(parsedProto)
+	if err != nil {
+		return err
+	}
+
+	generatedCode, err := gen.GenerateCode(pf)
 	if err != nil {
 		return err
 	}

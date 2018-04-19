@@ -51,9 +51,6 @@ Generate the protods code:
 ```bash
 # Generate setters for all getters, interfaces for all types.
 protods generate itypes getting-started.proto
-
-# Generate 
-protods generate itypes getting-started.proto
 ```
  
 ## Code Generation Walkthrough
