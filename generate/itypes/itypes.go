@@ -198,6 +198,16 @@ func (g *Generator) GenerateCode(pf *parser.File) ([]byte, error) {
 		outp.WriteString("}\n")
 
 		// Furthermore, augment the auto-generated proto types.
+		outp.WriteString("\nfunc (m *")
+		outp.WriteString(message.Name)
+		outp.WriteString(") To")
+		outp.WriteString(interName)
+		outp.WriteString("() ")
+		outp.WriteString(interName)
+		outp.WriteString(" {\n\treturn (")
+		outp.WriteString(interName)
+		outp.WriteString(")(m)\n}\n")
+
 		for _, field := range message.Fields {
 			var typeName string
 			if field.Map != nil {
@@ -206,8 +216,10 @@ func (g *Generator) GenerateCode(pf *parser.File) ([]byte, error) {
 				typeName = field.Type
 			}
 
-			// func (m *Hello) NewSubject() ISubject
+			// func (m *Hello) ToIHello() IHello
 			if typeName[0] == 'I' {
+
+				// func (m *Hello) NewSubject() ISubject
 				outp.WriteString("\nfunc (m *")
 				outp.WriteString(message.Name)
 				outp.WriteString(") New")

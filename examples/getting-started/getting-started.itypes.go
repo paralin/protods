@@ -38,6 +38,10 @@ func (m StringExampleMap) ForEach(cb func(key string, val IExample) bool) bool {
 type IExample interface {
 }
 
+func (m *Example) ToIExample() IExample {
+	return (IExample)(m)
+}
+
 // IHello is the interface type for Hello.
 // Hello is a hello message.
 type IHello interface {
@@ -46,6 +50,10 @@ type IHello interface {
 	GetMapFieldInter() IStringExampleMap
 	SetMapField(val IStringExampleMap)
 	NewMapField() IStringExampleMap
+}
+
+func (m *Hello) ToIHello() IHello {
+	return (IHello)(m)
 }
 
 func (m *Hello) SetSubject(val string) {
